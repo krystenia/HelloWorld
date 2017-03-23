@@ -51,4 +51,14 @@ public class QuoteBean {
     public void setLink(String link) {
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return "QuoteBean{" +
+                "ID=" + ID +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", link='" + link + '\'' +
+                '}';
+    }
 }
