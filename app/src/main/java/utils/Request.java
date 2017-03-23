@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
