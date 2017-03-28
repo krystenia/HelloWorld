@@ -18,9 +18,11 @@ import model.QuoteBean;
 
 public class Request {
 
-    public static QuoteBean stringRequest(String url, int method) throws ExecutionException, InterruptedException, JSONException {
+    public static QuoteBean stringRequest(String url, int method,String tag) throws ExecutionException, InterruptedException, JSONException {
         RequestFuture<String> requestFuture = RequestFuture.newFuture();
-        RequestManager.getRequestQueue().add(new StringRequest(method,url, requestFuture,requestFuture));
+        com.android.volley.Request req=new StringRequest(method,url, requestFuture,requestFuture);
+        req.setTag(tag);
+        RequestManager.getRequestQueue().add(req);
         Gson gson = new Gson();
         String result=requestFuture.get();
 
