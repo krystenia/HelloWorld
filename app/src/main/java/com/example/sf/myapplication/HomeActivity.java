@@ -52,7 +52,6 @@ public class HomeActivity extends AppCompatActivity {
     private final String TAG = "HomeActivity";
     private String url = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1";
     private String baseUrl = "http://quotesondesign.com/";
-
     //    private String url="http://www.baidu.com";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -199,18 +198,18 @@ public class HomeActivity extends AppCompatActivity {
     /**
      * rxjava + retrofit
      */
-    private void test3(){
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
+    private void test3() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         IQuote iQuote = retrofit.create(IQuote.class);
         final Call<List<QuoteBean>> call = iQuote.getQuote("rand", "1");
-        Observable<List<QuoteBean>> observable=Observable.create(new ObservableOnSubscribe<List<QuoteBean>>() {
+        Observable<List<QuoteBean>> observable = Observable.create(new ObservableOnSubscribe<List<QuoteBean>>() {
             @Override
             public void subscribe(ObservableEmitter<List<QuoteBean>> e) throws Exception {
                 e.onNext(call.execute().body());
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
 
-        Observer observer=new Observer() {
+        Observer observer = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -219,12 +218,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onNext(Object o) {
 
-                Log.e(TAG,o.toString());
+                Log.e(TAG, o.toString());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e(TAG,"onerror");
+                Log.e(TAG, "onerror");
             }
 
             @Override
@@ -256,4 +255,5 @@ public class HomeActivity extends AppCompatActivity {
         //when this activity call ondestroy,cancel the request in requestQueue
         RequestManager.getRequestQueue().cancelAll(HomeActivity.class.getSimpleName());
     }
+
 }
