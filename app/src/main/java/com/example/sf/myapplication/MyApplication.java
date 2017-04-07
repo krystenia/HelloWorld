@@ -11,6 +11,8 @@ import utils.RequestManager;
  */
 
 public class MyApplication extends Application {
+    private AppComponent appComponent;
+    private static MyApplication instance;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,5 +21,22 @@ public class MyApplication extends Application {
         }
         LeakCanary.install(this);
         RequestManager.init(this);
+        setupComponent();
+        this.instance=this;
+    }
+
+    private void setupComponent(){
+        appComponent=DaggerAppComponent.builder()
+                .githubApiModule(new GithubApiModule())
+                .appModule(new AppModule(this))
+                .build();
+    }
+
+    public static MyApplication getsInstance() {
+        return instance;
+    }
+
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 }

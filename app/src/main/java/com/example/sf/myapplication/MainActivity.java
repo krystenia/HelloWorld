@@ -1,30 +1,43 @@
 package com.example.sf.myapplication;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button login;
-    private EditText usernameEt,pwdEt;
+import butterknife.Bind;
+import butterknife.OnClick;
+
+public class MainActivity extends BaseActivity{
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.button)
+    Button button;
+    @Bind(R.id.username)
+    EditText username;
+    @Bind(R.id.password)
+    EditText password;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    protected void setupActivityComponent(AppComponent appComponent) {
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    protected void init() {
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,15 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setAction("Action", null).show();
             }
         });
-
-        init();
-    }
-
-    private void init(){
-        login= (Button) findViewById(R.id.button);
-        usernameEt= (EditText) findViewById(R.id.username);
-        pwdEt= (EditText) findViewById(R.id.password);
-        login.setOnClickListener(this);
     }
 
     @Override
@@ -60,19 +64,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        String name= usernameEt.getText().toString();
-        String pwd=pwdEt.getText().toString();
-        if(TextUtils.isEmpty(name)){
-            Toast.makeText(this,"username must not be empty",Toast.LENGTH_SHORT).show();
-            return;
+    @OnClick({R.id.button})
+    public void onViewClicked(View v) {
+        switch (v.getId()){
+            case R.id.button:
+                String name = username.getText().toString();
+                String pwd = password.getText().toString();
+//        if(TextUtils.isEmpty(name)){
+//            Toast.makeText(this,"username must not be empty",Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        if(TextUtils.isEmpty(pwd)){
+//            Toast.makeText(this,"password must not be empty",Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                break;
         }
-        if(TextUtils.isEmpty(pwd)){
-            Toast.makeText(this,"password must not be empty",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent=new Intent(this,HomeActivity.class);
-        startActivity(intent);
     }
 }

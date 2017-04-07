@@ -5,4 +5,8 @@
     <string name="login">login</string>
     <string name="username">username</string>
     <string name="password">password</string>
+    <string name="nav_git">github</string>
+    <string name="nav_csdn">csdn</string>
+    <string name="nav_settings">设置</string>
+    <string name="api_github">https://api.github.com</string>
 </resources>

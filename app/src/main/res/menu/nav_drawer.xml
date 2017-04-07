@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_news"
+            android:title="@string/nav_git"
+            android:icon="@drawable/leak_canary_icon"/>
+        <item android:id="@+id/nav_beauty"
+            android:title="@string/nav_csdn"
+            android:icon="@drawable/leak_canary_icon"/>
+        </group>
+    <group android:checkableBehavior="none">
+        <item android:id="@+id/nav_settings"
+            android:title="@string/nav_settings"
+            android:icon="@drawable/leak_canary_icon"/>
+    </group>
+</menu>

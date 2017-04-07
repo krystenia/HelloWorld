@@ -1,13 +1,16 @@
 package com.example.sf.myapplication;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
-
-import com.android.volley.RequestQueue;
+import android.widget.FrameLayout;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -15,7 +18,6 @@ import org.reactivestreams.Subscription;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -31,8 +33,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 import utils.IQuote;
 import utils.Request;
 import utils.RequestManager;
@@ -41,7 +41,7 @@ import utils.RequestManager;
  * Created by 89003337 on 2017/3/22.
  */
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Bind(R.id.retrofit)
     Button retrofit;
@@ -50,14 +50,38 @@ public class HomeActivity extends AppCompatActivity {
     @Bind(R.id.compose)
     Button compose;
     private final String TAG = "HomeActivity";
+    @Bind(R.id.home_content)
+    FrameLayout homeContent;
+    @Bind(R.id.nav_view)
+    NavigationView navView;
+    @Bind(R.id.drawer)
+    DrawerLayout drawer;
+    @Bind(R.id.dagger)
+    Button dagger;
     private String url = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1";
     private String baseUrl = "http://quotesondesign.com/";
-    //    private String url="http://www.baidu.com";
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        ButterKnife.bind(this);
+    protected void setupActivityComponent(AppComponent appComponent) {
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_home;
+    }
+
+    protected void init() {
+        initDrawerView(drawer, navView);
+    }
+
+    private void initDrawerView(DrawerLayout drawer, NavigationView navView) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.flags |= WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+            drawer.setFitsSystemWindows(true);
+            drawer.setClipToPadding(true);
+        }
+        navView.setNavigationItemSelectedListener(this);
     }
 
 
@@ -234,7 +258,7 @@ public class HomeActivity extends AppCompatActivity {
         observable.subscribe(observer);
     }
 
-    @OnClick({R.id.retrofit, R.id.rxjava, R.id.compose})
+    @OnClick({R.id.retrofit, R.id.rxjava, R.id.compose,R.id.dagger})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.retrofit:
@@ -246,7 +270,15 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.compose:
                 test3();
                 break;
+            case R.id.dagger:
+                turn();
+                break;
         }
+    }
+
+    private void turn(){
+        Intent intent=new Intent(this,ReposListActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -256,4 +288,8 @@ public class HomeActivity extends AppCompatActivity {
         RequestManager.getRequestQueue().cancelAll(HomeActivity.class.getSimpleName());
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
 }

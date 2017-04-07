@@ -1,9 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <Button
+    <FrameLayout
+        android:id="@+id/home_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_margin_top"
+                android:background="?attr/colorPrimary"
+                android:layout_marginTop="@dimen/header_margin"/>
+
+            <Button
+                android:id="@+id/retrofit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="retrofit"
+                />
+
+            <Button
+                android:id="@+id/rxjava"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="rxjava" />
+
+            <Button
+                android:id="@+id/compose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="compose" />
+
+            <Button
+                android:id="@+id/dagger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="dagger" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <include layout="@layout/nav_layout" />
+    <!--<Button
         android:id="@+id/retrofit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,5 +63,5 @@
         android:id="@+id/compose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="compose" />
-</LinearLayout>
+        android:text="compose" />-->
+</android.support.v4.widget.DrawerLayout>
