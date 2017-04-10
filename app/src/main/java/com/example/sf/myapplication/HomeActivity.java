@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -60,6 +61,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     Button dagger;
     private String url = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1";
     private String baseUrl = "http://quotesondesign.com/";
+    private int currentItem=-1;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -290,6 +292,12 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        Log.e("onNavigation",item.getTitle()+"");
+        drawer.closeDrawer(Gravity.LEFT);
+        if (item.isChecked()) {
+            return true;
+        }
+        currentItem=item.getItemId();
+        return true;
     }
 }

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single" android:id="@+id/choose">
         <item android:id="@+id/nav_news"
             android:title="@string/nav_git"
-            android:icon="@drawable/leak_canary_icon"/>
+            android:icon="@mipmap/ic_nav_news"/>
         <item android:id="@+id/nav_beauty"
             android:title="@string/nav_csdn"
-            android:icon="@drawable/leak_canary_icon"/>
+            android:icon="@mipmap/ic_nav_picture"/>
         </group>
     <group android:checkableBehavior="none">
         <item android:id="@+id/nav_settings"
             android:title="@string/nav_settings"
-            android:icon="@drawable/leak_canary_icon"/>
+            android:icon="@mipmap/ic_nav_setting"/>
     </group>
 </menu>

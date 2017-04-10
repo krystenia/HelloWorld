@@ -10,5 +10,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class,GithubApiModule.class})
 interface AppComponent {
-    void inject(BaseActivity activity);
+    void inject(ReposListActivity activity);
 }
